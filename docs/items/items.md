@@ -1,7 +1,7 @@
 Items
 =====
 
-Along with blocks, items make up the backbone of any good mod. While blocks make up the world around you, items are what let you change it.
+Along with blocks, items are a key component of most mods. While blocks make up the world around you, items are what let you change it.
 
 Creating an Item
 ----------------
@@ -13,7 +13,7 @@ Basic items that need no special functionality (think sticks or sugar) don't nee
 |         Method         |                  Description                  |
 |:----------------------:|:----------------------------------------------|
 |    `setCreativeTab`    | Sets which creative tab this item is under. Must be called if this item is meant to be shown on the creative menu. Vanilla tabs can be found in the class `CreativeTabs`. |
-|     `setMaxDamage`     | Sets the maximum damage value for this item. If it's over `0`, 2 item overrides "damaged" and "damage" are added. |
+|     `setMaxDamage`     | Sets the maximum damage value for this item. If it's over `0`, 2 [item properties][override] "damaged" and "damage" are added. |
 |    `setMaxStackSize`   | Sets the maximum stack size.                  |
 |      `setNoRepair`     | Makes this item impossible to repair, even if it is damageable. |
 |  `setUnlocalizedName`  | Sets this item's unlocalized name, with "item." prepended. |
@@ -40,8 +40,13 @@ Now that you have created an item, it is time to register it. As with most thing
 
 Unlike blocks, which are automatically bound to their blockstate files, items must have their models explicitly registered. This holds true even for `ItemBlock`s. This registering can only happen on the clientside, so make sure you only call this code through your client proxy.
 
-Item model registering happens through `ModelLoader.setCustomModelResourceLocation`. This method registers a mapping from (item, meta) to a `ModelResourceLocation`. A `ModelResourceLocation` is the combination of a `ResourceLocation` (like `examplemod:foo`) with a variant string (like `variant=iron`). For a blockstate JSON `examplemod:block`, we can construct an RL for it, and then an MRL refers to a certain variant within that JSON.
+#### Simple Mappings from Meta to Model
 
-However, items don't have blockstate JSONs, therefore vanilla Minecraft forces the variant to be `"inventory"` and requires that "variants" be done through [property overrides](overrides). Forge goes ahead and undoes this, so you can now use variant strings on items.
+The simplest item model registering happens through `ModelLoader.setCustomModelResourceLocation`. This method registers a mapping from an item and a metadata to a `ModelResourceLocation`. A `ModelResourceLocation` is the combination of a `ResourceLocation` (like `examplemod:foo`) with a variant string (like `variant=iron`). For a blockstate JSON, we can construct an RL for it, and then an MRL refers to a certain variant within that JSON. As well as registering the mapping, the method also calls `ModelBakery.registerItemVariants`
 
-This is most useful on `ItemBlock`s, where you can simply register some meta values of an item to a variant on the block's own JSON without having to make several separate item JSONs. For ordinary items, this is useless and you are forced to use property overrides anyway.
+When you register an MRL for an item, first the game will try to load the variant from the blockstate JSON that corresponds to the `ResourceLocation`. The blockstate JSON need not actually be used by a block, blockstate JSONs are equally valid for *both* items and blocks. If it fails, the variant string `inventory` is specialcased by vanilla to use the item model in `models/item/`. 
+#### `ItemMeshDefinition`
+
+It is also possible to use arbitrary code to map `ItemStack`s to `ModelResourceLocations`. An `ItemMeshDefinition` is a function that maps `ItemStack`s to `ModelResourceLocation`s. You can register an IMD for a certain item through `ModelLoader.setCustomMeshDefinition`. However, when you do so, `ModelBaker.registerItemVariants` is not called. Therefore you must manually register the MRLs that your IMD can return as well as registering the IMD itself.
+
+[override]: overrides
