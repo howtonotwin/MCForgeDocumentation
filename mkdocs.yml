@@ -15,7 +15,6 @@ pages:
     - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
   - Items:
     - Home: 'items/items.md'
-    - Item Property Overrides: 'items/overrides.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
