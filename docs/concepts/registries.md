@@ -1,10 +1,7 @@
-Registration
-============
+Registries
+==========
 
 Registration is the process of taking the objects of a mod (items, blocks, sounds, etc.) and making them known to the game. Registering things is important, as without registration the game will simply not know about these objects in a mod and will exhibit great amounts of unexplainable (and probably crashy) behavior.
-
-Registries
-----------
 
 Most things that require registration in the game are handled by the Forge registries. A registry is a simple object similar to a map that assigns values to keys. Forge uses registries from `ResourceLocation`s to registry objects, which are of type `IForgeRegistryEntry`. This allows the RL to act like a "registry name" for the object. The registry name for an object may be accessed with `get`/`setRegistryName`. The setter can only ever be called once, and calling it twice results in an exception. Every type of registerable object has its own registry, and names in two different registries will not collide. (E.g. there's a registry for `Block`s, and a registry for `Item`s, and a `Block` may be registered with the name `mod:example`, and an `Item` may be registered with the same name, without colliding. However, if two blocks were registered with that name, the game would crash.)
 
