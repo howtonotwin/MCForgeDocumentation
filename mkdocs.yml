@@ -18,6 +18,7 @@ pages:
     - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
   - Events:
     - Basic Usage: 'events/intro.md'
+    - Creating Events: 'events/creating.md'
   - Networking:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
