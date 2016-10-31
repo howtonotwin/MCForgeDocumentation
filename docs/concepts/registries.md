@@ -24,6 +24,8 @@ The order in which `RegistryEvent.Register` events fire is arbitrary, with the e
 !!! important
     These events are fired *before* preinit. This means that `@Mod.EventBusSubscriber` (or `MinecraftForge.EVENT_BUS.register` in the `@Mod` class's constructor for e.g. Scala mods which do not support `static`) should be used to register the event handler before preinit.
 
+There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IFRE::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an IFRE and an RL, which is equivalent to `GameRegistry.register(ifre.setRegistryName(rl))`.
+
 Creating Registries
 -------------------
 
