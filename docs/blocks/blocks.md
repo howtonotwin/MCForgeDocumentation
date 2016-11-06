@@ -31,9 +31,9 @@ Blocks must be [registered][registering] to function.
 
 !!! important
     
-    There is a very large difference between a block in the world and a block in an inventory. A block in the world is governed by an instance of `Block`, it has a blockstate, a 4-bit meta, and maybe a tile entity. Meanwhile, an item in an inventory is controlled by an instance of `Item`, with a 16-bit damage/meta, and maybe an NBT tag. As a bridge between the different worlds of `Block` and `Item`, there exists the class `ItemBlock`. `ItemBlock` is a subclass of `Item` that has a field `block` that holds a reference to the `Block` it represents. `ItemBlock` defines some of the behavior of a "block" as an item, like how a right click places the block. It's possible to have a `Block` without an `ItemBlock`. (E.g. `minecraft:water` is a block, but not an item.)
-    
-    When a block is registered, *only* a block is registered. The block does not automatically have an `ItemBlock`. To create a basic `ItemBlock` for a block one should use `new ItemBlock(block).setRegistryName(block.getRegistryName())`. Custom subclasses of `ItemBlock` may be used as well. Once an `ItemBlock` has been registered for a block, `Item.getItemFromBlock` can be used to retrieve it.
+    A block in the world and a "block" in an inventory are very different entities. A block in the world is represented by an `IBlockState`, and its behavior defined by an instance of `Block`. Meanwhile, an item in an inventory is an `ItemStack`, controlled by an `Item`. As a bridge between the different worlds of `Block` and `Item`, there exists the class `ItemBlock`. `ItemBlock` is a subclass of `Item` that has a field `block` that holds a reference to the `Block` it represents. `ItemBlock` defines some of the behavior of a "block" as an item, like how a right click places the block. It's possible to have a `Block` without an `ItemBlock`. (E.g. `minecraft:water` exists a block, but not an item. It is therefore impossible to hold it in an inventory as one.)
+
+    When a block is registered, *only* a block is registered. The block does not automatically have an `ItemBlock`. To create a basic `ItemBlock` for a block one should use `new ItemBlock(block).setRegistryName(block.getRegistryName())`. The unlocalized name is the same as the block's. Custom subclasses of `ItemBlock` may be used as well. Once an `ItemBlock` has been registered for a block, `Item.getItemFromBlock` can be used to retrieve it.
 
 Further Reading
 ---------------
