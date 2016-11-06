@@ -13,7 +13,7 @@ Terminology
 `sounds.json`
 -------------
 
-This json should be located in the `assets` directory of a mod: `src/main/resources/assets/<mod id>/sounds.json`. This file declares sound events and identifies which sound files they use.
+This json should be located in the `assets` directory of a mod: `src/main/resources/assets/<modid>/sounds.json`. This file declares sound events and identifies which sound files they use.
 
 A full specification is available on the vanilla [wiki][], but this example highlights the important parts:
 
