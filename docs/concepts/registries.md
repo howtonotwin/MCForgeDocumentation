@@ -15,7 +15,7 @@ The recommended way to register things is through the `RegistryEvent`s. In `Regi
 ```java
 @SubscribeEvent
 public void registerBlocks(RegistryEvent.Register<Block> event) {
-    e.getRegistry().registerAll(block1, block2, ...);
+    event.getRegistry().registerAll(block1, block2, ...);
 }
 ```
 
@@ -24,7 +24,7 @@ The order in which `RegistryEvent.Register` events fire is arbitrary, with the e
 !!! important
     These events are fired *before* preinit. This means that `@Mod.EventBusSubscriber` (or `MinecraftForge.EVENT_BUS.register` in the `@Mod` class's constructor for e.g. Scala mods which do not support `static`) should be used to register the event handler before preinit.
 
-There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an IForgeRregistryEntry (`ifre`) and an RL, which is equivalent to `GameRegistry.register(ifre.setRegistryName(rl))`.
+There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` (`ifre`) and an RL, which is equivalent to `GameRegistry.register(ifre.setRegistryName(rl))`.
 
 Creating Registries
 -------------------
@@ -62,7 +62,7 @@ class AnnotatedHolder {
                                                     // The domain is explicit, and is "neomagicae", overriding the class's "minecraft" default.
                                                     // Object to be injected: "neomagicae:coffeinum" from the ManaType registry.
 
-    public static Item ENDER_PEARL = null;          // Note that the actual name is "minecraft:ender_pearl", not "minecraft:ENDER_PEARL".
+    public static final Item ENDER_PEARL = null;    // Note that the actual name is "minecraft:ender_pearl", not "minecraft:ENDER_PEARL".
                                                     // Therefore, THIS WILL FAIL. The field has to be lowercased or annotated.
 }
 
